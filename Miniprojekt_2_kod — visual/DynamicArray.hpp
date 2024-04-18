@@ -15,7 +15,6 @@ class dynamicArray {
 private:
     int dynamicArrayCapacity = 0; //zmienna rozmiaru tablicy
     int dynamicArraySize = 0; //iloœæ elementów w tablicy
-    //int* dynamicArrayPtr = NULL; //wskaŸnik na tablice
     Node* arrayNode_;
 
     void increaseCapacity();
@@ -28,6 +27,7 @@ public:
     int getDynamicArraySize() const;
     bool isDynamicArrayEmpty();
     int getDynamicArrayElementAt(int index);
+    int getDynamicArrayKeyAt(int index);
     //int findElement(int element);
 
     void displayDynamicArray();
@@ -38,6 +38,7 @@ public:
     //void remove(int index);
     void removeBack();
     //void removeFront();
+    void swapNodes(int index1, int index2);
 
     void fillFromArrayCSV(const string& filename, int maxElements);
 };

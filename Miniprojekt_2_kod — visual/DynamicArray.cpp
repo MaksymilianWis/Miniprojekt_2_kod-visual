@@ -77,6 +77,11 @@ int dynamicArray::getDynamicArrayElementAt(int index) {
     return arrayNode_[index].getValue();
 }
 
+
+int dynamicArray::getDynamicArrayKeyAt(int index) {
+    return arrayNode_[index].getKey();
+}
+
 //int dynamicArray::findElement(int element) {
 //    for (int i = 0; i < dynamicArraySize; i++) {
 //        if (dynamicArrayPtr[i] == element) {
@@ -165,6 +170,13 @@ void dynamicArray::removeBack() {
 //    dynamicArraySize--;
 //    decreaseCapacity();
 //}
+
+void dynamicArray::swapNodes(int index1, int index2) {
+    Node temp = arrayNode_[index1];
+
+    arrayNode_[index1] = arrayNode_[index2];
+    arrayNode_[index2] = temp;
+}
 
 void dynamicArray::fillFromArrayCSV(const std::string& filename, int maxElements) {
     // Otwieramy plik CSV

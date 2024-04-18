@@ -30,12 +30,24 @@
     <ClCompile Include="Node.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="test.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Zapis.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Heap.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Node.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Zapis.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

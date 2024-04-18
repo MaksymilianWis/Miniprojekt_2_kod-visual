@@ -39,3 +39,7 @@ bool Node::isEmpty() {
 int Node::getValue() {
     return value_;
 }
+
+int Node::getKey() {
+    return key_;
+}

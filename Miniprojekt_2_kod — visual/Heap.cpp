@@ -3,21 +3,22 @@
 #include "Heap.hpp"
 #include "DynamicArray.hpp"
 
-// NODE
-node::node() : key_(0), value_(0) {};
-node::node(int key, int value) : key_(key), value_(value) {};
-
-Heap::Heap(unsigned capacity) : size_(capacity), capacity_(capacity), ptr_(new node[capacity]) {};
+Heap::Heap(unsigned capacity) : size_(capacity), capacity_(capacity), array_(new dynamicArray) {};
 Heap::~Heap(){
     delete[] ptr_;
     ptr_ = nullptr;
 }
 
-void Heap::insert(int element, int priority){
+void Heap::insert(int key, int value){
+    // dodawanie na koniec
+    array_->addBack(key, value);
 
+    // porwawianie nie jezeli niewalsciwie umieszczony
+    buildMaxHeap();
 }
 
 int Heap::extractMax(){
+    int temp = array_->getDynamicArrayElementAt(0)
     return 0;
 }
 
@@ -25,7 +26,7 @@ int Heap::findMax(){
     return 0;
 }
 
-void Heap::modifyKey(int element, int priority){
+void Heap::modifyKey(int element, int new_key){
 
 }
 
@@ -41,23 +42,20 @@ void Heap::maxHeapify(unsigned i){
 
     // szukanie większych synów niż rodzidziców
     // z lewa
-    if (l < size_ && ptr_[l].key_ > ptr_[i].key_){
+    if (l < size_ && array_->getDynamicArrayKeyAt(l) > array_->getDynamicArrayKeyAt(i)) {
         largest = l;
     }
     // z prawa
-    if (r < size_ && ptr_[l].key_ > ptr_[largest].key_){
+    if (r < size_ && array_->getDynamicArrayKeyAt(l) > array_->getDynamicArrayKeyAt(largest)){
         largest = r;
     }
 
 
     // jezeli largest zostal zmieniony to swap
     if (largest != i){
-        node temp;
+        Node temp;
 
-        temp = ptr_[i];
-
-        ptr_[i] = ptr_[largest];
-        ptr_[largest] = temp;
+        array_->swapNodes(i, largest);
 
         // rekurencja
         maxHeapify(largest);

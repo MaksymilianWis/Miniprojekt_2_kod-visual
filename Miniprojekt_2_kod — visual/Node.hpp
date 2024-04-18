@@ -19,4 +19,5 @@ public:
     bool isEmpty();
 
     int getValue();
+    int getKey();
 };
