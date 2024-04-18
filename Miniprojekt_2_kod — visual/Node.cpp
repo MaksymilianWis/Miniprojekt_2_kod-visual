@@ -13,7 +13,7 @@ void Node::OverwriteNodeValue(int value) {
     value_ = value;
 }
 
-void Node::OverwriteNodeData(int key) {
+void Node::OverwriteNodeKey(int key) {
     // nie wolno zmieniac danych bez dodania klucza
     if (empty_ == true) {
         std::cout << "ERROR Cannot change key when value is not set\n";
@@ -22,7 +22,7 @@ void Node::OverwriteNodeData(int key) {
     key_ = key;
 }
 
-void Node::OverwriteNodeData(int key, int value) {
+void Node::OverwriteNodeKeyValue(int key, int value) {
     key_ = key;
     value_ = value;
     empty_ = false;

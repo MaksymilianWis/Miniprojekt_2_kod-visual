@@ -21,7 +21,7 @@
     <ClCompile Include="Heap.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="DynamiArray.cpp">
+    <ClCompile Include="DynamicArray.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="DynamicArray.hpp">

@@ -1,6 +1,6 @@
 #pragma once
 
-//#include "dynamicArray.hpp"
+#include "dynamicArray.hpp"
 
 struct node
 {
@@ -16,7 +16,7 @@ class Heap{
 private:
     // liczone od 1
     node* ptr_;
-    dynamicArray array_;
+    dynamicArray* array_;
     unsigned size_;
     unsigned capacity_;
 

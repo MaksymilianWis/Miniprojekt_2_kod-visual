@@ -12,8 +12,8 @@ private:
 
 public:
     void OverwriteNodeValue(int value);
-    void OverwriteNodeData(int key);
-    void OverwriteNodeData(int key, int value);
+    void OverwriteNodeKey(int key);
+    void OverwriteNodeKeyValue(int key, int value);
     void clearNode();
 
     bool isEmpty();

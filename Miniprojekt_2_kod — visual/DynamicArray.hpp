@@ -32,12 +32,12 @@ public:
 
     void displayDynamicArray();
     void displayDynamicArrayWCapacity();
-    void add(int index, int element);
-    void addBack(int element);
-    void addFront(int item);
-    void remove(int index);
+    //void add(int index, int element);
+    void addBack(int key, int element);
+    //void addFront(int item);
+    //void remove(int index);
     void removeBack();
-    void removeFront();
+    //void removeFront();
 
     void fillFromArrayCSV(const string& filename, int maxElements);
 };

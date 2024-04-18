@@ -1,11 +1,11 @@
 #include "DynamicArray.hpp"
 
-dynamicArray::dynamicArray(int capacity) : dynamicArrayCapacity(capacity), arrayNode_(new node[capacity]) {
+dynamicArray::dynamicArray(int capacity) : dynamicArrayCapacity(capacity), arrayNode_(new Node[capacity]) {
     // konstruktor z argumentem rozmiaru tablicy, pointer wskazuje na pocz¹tek tej tablicy
     
     // flagi empty_ automatycznie ustawiane w konstruktorze node
 }
-dynamicArray::dynamicArray() : dynamicArraySize(0), dynamicArrayCapacity(0), arrayNode_(new node[0])
+dynamicArray::dynamicArray() : dynamicArraySize(0), dynamicArrayCapacity(0), arrayNode_(new Node[0])
 {
     //konstruktor domyœlny
 }
@@ -88,7 +88,7 @@ int dynamicArray::getDynamicArrayElementAt(int index) {
 
 void dynamicArray::displayDynamicArrayWCapacity() {
     for (int i = 1; i < dynamicArrayCapacity + 1; i++) {
-        cout << dynamicArrayPtr[i] << "\t"; // Wyœwietlamy wartoœæ na pozycji i
+        cout << arrayNode_[i].getValue() << "\t"; // Wyœwietlamy wartoœæ na pozycji i
     }
     cout << endl;
 }
@@ -96,74 +96,75 @@ void dynamicArray::displayDynamicArrayWCapacity() {
 void dynamicArray::displayDynamicArray() {  //wyswietlenie tablicy
     // Przechodzimy przez tablicê i wyœwietlamy jej zawartoœæ
     for (int i = 1; i < dynamicArraySize + 1; i++) {
-        cout << dynamicArrayPtr[i] << "\t"; // Wyœwietlamy wartoœæ na pozycji i
+        cout << arrayNode_[i].getValue() << "\t"; // Wyœwietlamy wartoœæ na pozycji i
     }
     cout << endl;
 }
 
-void dynamicArray::addBack(int element) { // dodaje element w koniec tablicy
+void dynamicArray::addBack(int key, int value) { // dodaje value w koniec tablicy
     increaseCapacity();
     dynamicArraySize++;
-    dynamicArrayPtr[dynamicArraySize] = element;
+    arrayNode_[dynamicArraySize].OverwriteNodeKeyValue(key, value);
 }
 
-void dynamicArray::add(int index, int element) {
-    if (index < 0) {
-        cout << "B³¹d: Niepoprawny indeks!" << endl;
-        return;
-    }
+//void dynamicArray::add(int index, int element) {
+//    if (index < 0) {
+//        cout << "B³¹d: Niepoprawny indeks!" << endl;
+//        return;
+//    }
+//
+//    if (index < dynamicArraySize) {
+//        increaseCapacity();
+//        dynamicArraySize++;
+//        for (int i = dynamicArraySize; i > index; i--) {
+//            dynamicArrayPtr[i + 1] = dynamicArrayPtr[i];
+//        }
+//        dynamicArrayPtr[index + 1] = element;
+//    }
+//    else {
+//        //gdy index jest wiêkszy ni¿ size, wstaw nowy element na pierwsz¹ woln¹ pozycjê
+//        increaseCapacity();
+//        addBack(element);
+//    }
+//}
 
-    if (index < dynamicArraySize) {
-        increaseCapacity();
-        dynamicArraySize++;
-        for (int i = dynamicArraySize; i > index; i--) {
-            dynamicArrayPtr[i + 1] = dynamicArrayPtr[i];
-        }
-        dynamicArrayPtr[index + 1] = element;
-    }
-    else {
-        //gdy index jest wiêkszy ni¿ size, wstaw nowy element na pierwsz¹ woln¹ pozycjê
-        increaseCapacity();
-        addBack(element);
-    }
-}
-
-void dynamicArray::remove(int index) {
-    if (index < 0 || index > dynamicArraySize) {
-        cout << "B³¹d: Niepoprawny indeks!" << endl;
-        return;
-    }
-
-    // Usuwamy element na podanym indeksie
-    for (int i = index + 1; i < dynamicArraySize; ++i) {
-        dynamicArrayPtr[i] = dynamicArrayPtr[i + 1];
-    }
-    dynamicArraySize--;
-
-    decreaseCapacity();
-}
+//void dynamicArray::remove(int index) {
+//    if (index < 0 || index > dynamicArraySize) {
+//        cout << "B³¹d: Niepoprawny indeks!" << endl;
+//        return;
+//    }
+//
+//    // Usuwamy element na podanym indeksie
+//    for (int i = index + 1; i < dynamicArraySize; ++i) {
+//        dynamicArrayPtr[i] = dynamicArrayPtr[i + 1];
+//    }
+//    dynamicArraySize--;
+//
+//    decreaseCapacity();
+//}
 
 void dynamicArray::removeBack() {
+    arrayNode_[dynamicArraySize].clearNode();
     dynamicArraySize--;
     decreaseCapacity();
 }
 
-void dynamicArray::addFront(int element) {
-    increaseCapacity();
-    dynamicArraySize++;
-    for (int i = dynamicArraySize; i > 0; i--) {
-        dynamicArrayPtr[i] = dynamicArrayPtr[i - 1];
-    }
-    dynamicArrayPtr[1] = element;
-}
+//void dynamicArray::addFront(int element) {
+//    increaseCapacity();
+//    dynamicArraySize++;
+//    for (int i = dynamicArraySize; i > 0; i--) {
+//        dynamicArrayPtr[i] = dynamicArrayPtr[i - 1];
+//    }
+//    dynamicArrayPtr[1] = element;
+//}
 
-void dynamicArray::removeFront() {
-    for (int i = 1; i < dynamicArraySize; i++) {
-        dynamicArrayPtr[i] = dynamicArrayPtr[i + 1];
-    }
-    dynamicArraySize--;
-    decreaseCapacity();
-}
+//void dynamicArray::removeFront() {
+//    for (int i = 1; i < dynamicArraySize; i++) {
+//        dynamicArrayPtr[i] = dynamicArrayPtr[i + 1];
+//    }
+//    dynamicArraySize--;
+//    decreaseCapacity();
+//}
 
 void dynamicArray::fillFromArrayCSV(const std::string& filename, int maxElements) {
     // Otwieramy plik CSV
@@ -189,7 +190,9 @@ void dynamicArray::fillFromArrayCSV(const std::string& filename, int maxElements
                 continue;
             }
             // Dodajemy element do tablicy
-            addBack(element);
+            // cos jest poprostu offsetem ¿eby value != key // value nie ingeruje w badania
+            int cos = 2;
+            addBack(element, element+cos);
             elementsAdded++;
         }
     }
