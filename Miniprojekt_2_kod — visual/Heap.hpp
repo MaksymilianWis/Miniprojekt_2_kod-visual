@@ -5,10 +5,8 @@
 
 class Heap{
 private:
-    // liczone od 1
+    // liczone od 0
     dynamicArray* array_;
-    unsigned size_;
-    unsigned capacity_;
 
 
     void maxHeapify(unsigned i);
@@ -19,7 +17,7 @@ public:
     void insert(int key, int value);
     int extractMax();
     int findMax();
-    void modifyKey(int element, int new_key);
+    void modifyKey(int value, int new_key);
     unsigned returnSize();
 
 

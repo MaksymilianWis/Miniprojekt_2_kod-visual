@@ -3,10 +3,10 @@
 #include "Heap.hpp"
 #include "DynamicArray.hpp"
 
-Heap::Heap(unsigned capacity) : size_(capacity), capacity_(capacity), array_(new dynamicArray) {};
+Heap::Heap(unsigned capacity) : array_(new dynamicArray) {};
 Heap::~Heap(){
-    delete[] ptr_;
-    ptr_ = nullptr;
+    delete[] array_;
+    array_ = nullptr;
 }
 
 void Heap::insert(int key, int value){
@@ -18,54 +18,71 @@ void Heap::insert(int key, int value){
 }
 
 int Heap::extractMax(){
-    int temp = array_->getDynamicArrayElementAt(0)
-    return 0;
+    // skopiuj tymczasowo
+    int temp = array_->getDynamicArrayNodeAt(0).getValue();
+
+    // zamien miejscami nodes zamiast nadpisywac
+    array_->swapNodes(0, array_->getDynamicArraySize());
+    // usun ostatni czyli po swap bedzie to max
+    array_->removeBack();
+
+    buildMaxHeap();
+    return temp;
 }
 
 int Heap::findMax(){
-    return 0;
+    return array_->getDynamicArrayNodeAt(0).getValue();
 }
 
-void Heap::modifyKey(int element, int new_key){
+void Heap::modifyKey(int value, int new_key){
+    int i = 0;
 
+    // potrzebna metoda fina ktora zastapi ponizszy do while i bedzie wywolywana rekurencyjnie
+    do {
+        unsigned l = 2 * i + 1; // Lewy syn
+        unsigned r = 2 * i + 2; // Prawy syn
+        if (array_->getDynamicArrayNodeAt(l).getValue() >= value) {
+            if (array_->getDynamicArrayNodeAt(l).getValue() == value) break;
+
+
+        }
+    } while (1);
+
+    array_->getDynamicArrayNodeAt(value).OverwriteNodeKey(new_key);
 }
 
 unsigned Heap::returnSize(){
     return 0;
 }
 
-void Heap::maxHeapify(unsigned i){
-    unsigned l = 2 * i;
-    unsigned r = 2 * i + 1;
+// liczone od 0
+void Heap::maxHeapify(unsigned i) {
+    unsigned l = 2 * i + 1; // Lewy syn
+    unsigned r = 2 * i + 2; // Prawy syn
 
     unsigned largest = i;
 
-    // szukanie większych synów niż rodzidziców
-    // z lewa
-    if (l < size_ && array_->getDynamicArrayKeyAt(l) > array_->getDynamicArrayKeyAt(i)) {
+    // Szukanie większych synów niż rodzic
+    // Z lewej
+    if (l < array_->getDynamicArraySize() && array_->getDynamicArrayKeyAt(l) > array_->getDynamicArrayKeyAt(i)) {
         largest = l;
     }
-    // z prawa
-    if (r < size_ && array_->getDynamicArrayKeyAt(l) > array_->getDynamicArrayKeyAt(largest)){
+    // Z prawej
+    if (r < array_->getDynamicArraySize() && array_->getDynamicArrayKeyAt(r) > array_->getDynamicArrayKeyAt(largest)) {
         largest = r;
     }
 
-
-    // jezeli largest zostal zmieniony to swap
-    if (largest != i){
-        Node temp;
-
+    // Jeżeli largest został zmieniony, to zamień
+    if (largest != i) {
         array_->swapNodes(i, largest);
-
-        // rekurencja
+        // Rekurencja
         maxHeapify(largest);
     }
 }
 
-    void Heap::buildMaxHeap(){
-        // wywolanie maxHeapyfy od dolu(bez lisci) do gory
-        for (unsigned i = size_/2; i > 0; i--)
-        {
-            maxHeapify(i);
-        }
+void Heap::buildMaxHeap() {
+    // Wywołanie maxHeapify od dołu (bez liści) do góry
+    for (unsigned i = (array_->getDynamicArraySize() / 2) - 1; i >= 0; i--) {
+        maxHeapify(i);
     }
+}

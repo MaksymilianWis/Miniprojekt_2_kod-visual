@@ -26,8 +26,9 @@ public:
 
     int getDynamicArraySize() const;
     bool isDynamicArrayEmpty();
-    int getDynamicArrayElementAt(int index);
-    int getDynamicArrayKeyAt(int index);
+    //int getDynamicArrayValueAt(int index);
+    //int getDynamicArrayKeyAt(int index);
+    Node getDynamicArrayNodeAt(int index);
     //int findElement(int element);
 
     void displayDynamicArray();

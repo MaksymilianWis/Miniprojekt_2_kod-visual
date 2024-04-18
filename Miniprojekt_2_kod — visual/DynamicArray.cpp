@@ -69,7 +69,7 @@ bool dynamicArray::isDynamicArrayEmpty() {
     return dynamicArraySize == 0;
 }
 
-int dynamicArray::getDynamicArrayElementAt(int index) {
+int dynamicArray::getDynamicArrayValueAt(int index) {
     if (index < 0 || index >= dynamicArraySize) {
         cout << "B³¹d: Indeks poza zakresem!" << endl;
         exit(EXIT_FAILURE);
