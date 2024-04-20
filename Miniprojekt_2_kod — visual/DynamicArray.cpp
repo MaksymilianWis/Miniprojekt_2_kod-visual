@@ -69,17 +69,21 @@ bool dynamicArray::isDynamicArrayEmpty() {
     return dynamicArraySize == 0;
 }
 
-int dynamicArray::getDynamicArrayValueAt(int index) {
-    if (index < 0 || index >= dynamicArraySize) {
-        cout << "B³¹d: Indeks poza zakresem!" << endl;
-        exit(EXIT_FAILURE);
-    }
-    return arrayNode_[index].getValue();
-}
+//int dynamicArray::getDynamicArrayValueAt(int index) {
+//    if (index < 0 || index >= dynamicArraySize) {
+//        cout << "B³¹d: Indeks poza zakresem!" << endl;
+//        exit(EXIT_FAILURE);
+//    }
+//    return arrayNode_[index].getValue();
+//}
+//
+//
+//int dynamicArray::getDynamicArrayKeyAt(int index) {
+//    return arrayNode_[index].getKey();
+//}
 
-
-int dynamicArray::getDynamicArrayKeyAt(int index) {
-    return arrayNode_[index].getKey();
+Node dynamicArray::getDynamicArrayNodeAt(int index) {
+    return arrayNode_[index];
 }
 
 //int dynamicArray::findElement(int element) {
@@ -178,24 +182,34 @@ void dynamicArray::swapNodes(int index1, int index2) {
     arrayNode_[index2] = temp;
 }
 
-void dynamicArray::fillFromArrayCSV(const std::string& filename, int maxElements) {
+void dynamicArray::fillFromArrayCSV(const std::string& filename_keys, const std::string& filename_values, int maxElements) {
     // Otwieramy plik CSV
-    std::ifstream file(filename);
-    if (!file.is_open()) {
-        std::cerr << "Unable to open the file: " << filename << std::endl;
+    std::ifstream file1(filename_keys);
+    std::ifstream file2(filename_values);
+    if (!file1.is_open()) {
+        std::cerr << "Unable to open the file: " << filename_keys << std::endl;
+        return;
+    }
+    if (!file2.is_open()) {
+        std::cerr << "Unable to open the file: " << filename_keys << std::endl;
         return;
     }
 
-    std::string line;
+    std::string line1;
+    std::string line2;
     int elementsAdded = 0;
-    while (std::getline(file, line) && elementsAdded < maxElements) {
-        std::istringstream iss(line);
+    while (std::getline(file1, line1) && elementsAdded < maxElements && std::getline(file2, line2)) {
+        std::istringstream iss1(line1);
+        std::string key;
+        std::istringstream iss2(line2);
         std::string value;
-        while (std::getline(iss, value, ',') && elementsAdded < maxElements) {
-            int element;
+        while (std::getline(iss1, key, ',') && elementsAdded < maxElements && std::getline(iss2, value, ',')) {
+            int k;
+            int v;
             try {
                 // Konwertujemy wartoœæ z ci¹gu znaków na liczbê ca³kowit¹
-                element = std::stoi(value);
+                k = std::stoi(key);
+                v = std::stoi(value);
             }
             catch (const std::invalid_argument& e) {
                 // Ignorujemy nieprawid³owe wartoœci
@@ -203,12 +217,12 @@ void dynamicArray::fillFromArrayCSV(const std::string& filename, int maxElements
             }
             // Dodajemy element do tablicy
             // cos jest poprostu offsetem ¿eby value != key // value nie ingeruje w badania
-            int cos = 2;
-            addBack(element, element+cos);
+            addBack(k, v);
             elementsAdded++;
         }
     }
 
-    // Zamykamy plik
-    file.close();
+    // Zamykamy pliki
+    file1.close();
+    file2.close();
 }

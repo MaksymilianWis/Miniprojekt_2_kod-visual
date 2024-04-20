@@ -14,12 +14,19 @@ public:
     Heap(unsigned capacity);
     ~Heap();
 
+    unsigned returnSize();
+
     void insert(int key, int value);
     int extractMax();
+
     int findMax();
+    Node findNodeByValue(int value, int i);
+
     void modifyKey(int value, int new_key);
-    unsigned returnSize();
 
 
     void buildMaxHeap();
+
+    // szybkie przepisanie z pliku 
+    void fillFromArrayCSV(const std::string& filename_keys, const std::string& filename_values, int maxElements);
 };

@@ -41,5 +41,5 @@ public:
     //void removeFront();
     void swapNodes(int index1, int index2);
 
-    void fillFromArrayCSV(const string& filename, int maxElements);
+    void fillFromArrayCSV(const std::string& filename_keys, const std::string& filename_values, int maxElements);
 };

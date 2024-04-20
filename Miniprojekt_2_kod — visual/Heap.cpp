@@ -34,25 +34,42 @@ int Heap::findMax(){
     return array_->getDynamicArrayNodeAt(0).getValue();
 }
 
+
+// DO WERYFIKACJI
+Node Heap::findNodeByValue(int value, int i = 0) {
+
+    unsigned l = 2 * i + 1; // Lewy syn
+    unsigned r = 2 * i + 2; // Prawy syn
+
+    // czy pod lewym synem?
+    if (value <= array_->getDynamicArrayNodeAt(l).getValue()) {
+        
+        if (array_->getDynamicArrayNodeAt(l).getValue() == value) return array_->getDynamicArrayNodeAt(l);
+        
+        return findNodeByValue(value, l);
+    }
+
+    if (value <= array_->getDynamicArrayNodeAt(r).getValue()) {
+
+        if (array_->getDynamicArrayNodeAt(r).getValue() == value) return array_->getDynamicArrayNodeAt(r);
+
+        return findNodeByValue(value, r);
+    }
+
+    std::cout << "ERROR nie znaleziono elementu o wartosci" << value << std::endl;
+}
+
 void Heap::modifyKey(int value, int new_key){
     int i = 0;
 
     // potrzebna metoda fina ktora zastapi ponizszy do while i bedzie wywolywana rekurencyjnie
-    do {
-        unsigned l = 2 * i + 1; // Lewy syn
-        unsigned r = 2 * i + 2; // Prawy syn
-        if (array_->getDynamicArrayNodeAt(l).getValue() >= value) {
-            if (array_->getDynamicArrayNodeAt(l).getValue() == value) break;
-
-
-        }
-    } while (1);
-
-    array_->getDynamicArrayNodeAt(value).OverwriteNodeKey(new_key);
+    findNodeByValue(value).OverwriteNodeKey(new_key);
+    // naprawianie heap (ustawianie zmienionego key w dobrym miejscu)
+    buildMaxHeap();
 }
 
 unsigned Heap::returnSize(){
-    return 0;
+    return array_->getDynamicArraySize();
 }
 
 // liczone od 0
@@ -64,11 +81,11 @@ void Heap::maxHeapify(unsigned i) {
 
     // Szukanie większych synów niż rodzic
     // Z lewej
-    if (l < array_->getDynamicArraySize() && array_->getDynamicArrayKeyAt(l) > array_->getDynamicArrayKeyAt(i)) {
+    if (l < array_->getDynamicArraySize() && array_->getDynamicArrayNodeAt(l).getKey() > array_->getDynamicArrayNodeAt(i).getKey()) {
         largest = l;
     }
     // Z prawej
-    if (r < array_->getDynamicArraySize() && array_->getDynamicArrayKeyAt(r) > array_->getDynamicArrayKeyAt(largest)) {
+    if (r < array_->getDynamicArraySize() && array_->getDynamicArrayNodeAt(r).getKey() > array_->getDynamicArrayNodeAt(largest).getKey()) {
         largest = r;
     }
 
@@ -85,4 +102,8 @@ void Heap::buildMaxHeap() {
     for (unsigned i = (array_->getDynamicArraySize() / 2) - 1; i >= 0; i--) {
         maxHeapify(i);
     }
+}
+
+void Heap::fillFromArrayCSV(const std::string& filename_keys, const std::string& filename_values, int maxElements) {
+    array_->fillFromArrayCSV(filename_keys, filename_values, maxElements);
 }

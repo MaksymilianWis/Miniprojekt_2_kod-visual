@@ -7,6 +7,7 @@ struct Node
 
 private:
     bool empty_;
+    // key_ odpowiada priorytetowi
     int key_;
     int value_;
 
