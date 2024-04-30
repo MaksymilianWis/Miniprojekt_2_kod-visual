@@ -26,7 +26,7 @@ void dynamicArray::increaseCapacity() {
         Node* buffer = new Node[dynamicArrayCapacity * 2];
 
         // Kopiujemy istniej¹ce elementy do nowego bufora
-        for (int i = 0; i < dynamicArraySize + 1; i++) {
+        for (int i = 0; i < dynamicArraySize; i++) {
             buffer[i] = arrayNode_[i];
         }
 
@@ -47,7 +47,7 @@ void dynamicArray::decreaseCapacity() {
         Node* buffer = new Node[dynamicArrayCapacity / 2];
 
         // Kopiujemy istniej¹ce elementy do nowego bufora
-        for (int i = 0; i < dynamicArraySize + 1; ++i) {
+        for (int i = 0; i < dynamicArraySize; ++i) {
             buffer[i] = arrayNode_[i];
         }
 
@@ -113,7 +113,7 @@ void dynamicArray::displayDynamicArray() {  //wyswietlenie tablicy
 void dynamicArray::addBack(int key, int value) { // dodaje value w koniec tablicy
     increaseCapacity();
     dynamicArraySize++;
-    arrayNode_[dynamicArraySize].OverwriteNodeKeyValue(key, value);
+    arrayNode_[dynamicArraySize-1].OverwriteNodeKeyValue(key, value);
 }
 
 //void dynamicArray::add(int index, int element) {
@@ -182,46 +182,3 @@ void dynamicArray::swapNodes(int index1, int index2) {
     arrayNode_[index2] = temp;
 }
 
-void dynamicArray::fillFromArrayCSV(const std::string& filename_keys, const std::string& filename_values, int maxElements) {
-    // Otwieramy plik CSV
-    std::ifstream file1(filename_keys);
-    std::ifstream file2(filename_values);
-    if (!file1.is_open()) {
-        std::cerr << "Unable to open the file: " << filename_keys << std::endl;
-        return;
-    }
-    if (!file2.is_open()) {
-        std::cerr << "Unable to open the file: " << filename_values << std::endl;
-        return;
-    }
-
-    std::string line1;
-    std::string line2;
-    int elementsAdded = 0;
-    while (std::getline(file1, line1) && elementsAdded < maxElements && std::getline(file2, line2)) {
-        std::istringstream iss1(line1);
-        std::string key;
-        std::istringstream iss2(line2);
-        std::string value;
-        while (std::getline(iss1, key, ',') && (elementsAdded < maxElements) && std::getline(iss2, value, ',')) {
-            int k;
-            int v;
-            try {
-                // Konwertujemy wartoœæ z ci¹gu znaków na liczbê ca³kowit¹
-                k = std::stoi(key);
-                v = std::stoi(value);
-            }
-            catch (const std::invalid_argument& e) {
-                // Ignorujemy nieprawid³owe wartoœci
-                continue;
-            }
-            // Dodajemy element do tablicy
-            addBack(k, v);
-            elementsAdded++;
-        }
-    }
-
-    // Zamykamy pliki
-    file1.close();
-    file2.close();
-}

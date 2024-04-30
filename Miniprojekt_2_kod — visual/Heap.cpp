@@ -106,5 +106,45 @@ void Heap::buildMaxHeap() {
 }
 
 void Heap::fillFromArrayCSV(const std::string& filename_keys, const std::string& filename_values, int maxElements) {
-    array_->fillFromArrayCSV(filename_keys, filename_values, maxElements);
+    // Otwieramy plik CSV
+    std::ifstream file1(filename_keys);
+    std::ifstream file2(filename_values);
+    if (!file1.is_open()) {
+        std::cerr << "Unable to open the file: " << filename_keys << std::endl;
+        return;
+    }
+    if (!file2.is_open()) {
+        std::cerr << "Unable to open the file: " << filename_values << std::endl;
+        return;
+    }
+
+    std::string line1;
+    std::string line2;
+    int elementsAdded = 0;
+    while (std::getline(file1, line1) && elementsAdded < maxElements && std::getline(file2, line2)) {
+        std::istringstream iss1(line1);
+        std::string key;
+        std::istringstream iss2(line2);
+        std::string value;
+        while (std::getline(iss1, key, ',') && (elementsAdded < maxElements) && std::getline(iss2, value, ',')) {
+            int k;
+            int v;
+            try {
+                // Konwertujemy wartość z ciągu znaków na liczbę całkowitą
+                k = std::stoi(key);
+                v = std::stoi(value);
+            }
+            catch (const std::invalid_argument& e) {
+                // Ignorujemy nieprawidłowe wartości
+                continue;
+            }
+            // Dodajemy element do tablicy
+            insert(k, v);
+            elementsAdded++;
+        }
+    }
+
+    // Zamykamy pliki
+    file1.close();
+    file2.close();
 }
