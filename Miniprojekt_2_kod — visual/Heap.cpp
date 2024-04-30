@@ -3,9 +3,10 @@
 #include "Heap.hpp"
 #include "DynamicArray.hpp"
 
-Heap::Heap(unsigned capacity) : array_(new dynamicArray) {};
+Heap::Heap(unsigned capacity) : array_(new dynamicArray(capacity)) {
+};
 Heap::~Heap(){
-    delete[] array_;
+    delete array_;
     array_ = nullptr;
 }
 
@@ -99,7 +100,7 @@ void Heap::maxHeapify(unsigned i) {
 
 void Heap::buildMaxHeap() {
     // Wywołanie maxHeapify od dołu (bez liści) do góry
-    for (unsigned i = (array_->getDynamicArraySize() / 2) - 1; i >= 0; i--) {
+    for (int i = (array_->getDynamicArraySize() / 2) - 1; i >= 0; i--) {
         maxHeapify(i);
     }
 }

@@ -12,7 +12,7 @@ dynamicArray::dynamicArray() : dynamicArraySize(0), dynamicArrayCapacity(0), arr
 dynamicArray::~dynamicArray() {
     if (arrayNode_->isEmpty() == true) return;
 
-    free(arrayNode_);
+    delete[] arrayNode_;
     dynamicArrayCapacity = 0;
     dynamicArraySize = 0;
     arrayNode_ = nullptr;
@@ -191,7 +191,7 @@ void dynamicArray::fillFromArrayCSV(const std::string& filename_keys, const std:
         return;
     }
     if (!file2.is_open()) {
-        std::cerr << "Unable to open the file: " << filename_keys << std::endl;
+        std::cerr << "Unable to open the file: " << filename_values << std::endl;
         return;
     }
 
@@ -203,7 +203,7 @@ void dynamicArray::fillFromArrayCSV(const std::string& filename_keys, const std:
         std::string key;
         std::istringstream iss2(line2);
         std::string value;
-        while (std::getline(iss1, key, ',') && elementsAdded < maxElements && std::getline(iss2, value, ',')) {
+        while (std::getline(iss1, key, ',') && (elementsAdded < maxElements) && std::getline(iss2, value, ',')) {
             int k;
             int v;
             try {
@@ -216,7 +216,6 @@ void dynamicArray::fillFromArrayCSV(const std::string& filename_keys, const std:
                 continue;
             }
             // Dodajemy element do tablicy
-            // cos jest poprostu offsetem ¿eby value != key // value nie ingeruje w badania
             addBack(k, v);
             elementsAdded++;
         }
