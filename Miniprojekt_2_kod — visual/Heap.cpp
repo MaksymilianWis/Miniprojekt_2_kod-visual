@@ -37,34 +37,69 @@ int Heap::findMax(){
 
 
 // DO WERYFIKACJI
+//Node Heap::findNodeByValue(int value, int i = 0) {
+//
+//    unsigned l = 2 * i + 1; // Lewy syn
+//    unsigned r = 2 * i + 2; // Prawy syn
+//
+//    // warunek krancowy
+//    if (array_->getDynamicArrayNodeAt(i).isEmpty() or i >= array_->getDynamicArraySize()) {
+//        cout << "pusty" << endl;
+//        return Node();
+//    }
+//
+//    // czy pod lewym synem?
+//        if (array_->getDynamicArrayNodeAt(l).getValue() == value) {
+//            return array_->getDynamicArrayNodeAt(l);
+//        }
+//            return findNodeByValue(value, l);
+//        
+//
+//        if (array_->getDynamicArrayNodeAt(r).getValue() == value) {
+//            return array_->getDynamicArrayNodeAt(r);
+//        }
+//            return findNodeByValue(value, r);
+//
+//    //std::cout << "ERROR nie znaleziono elementu o wartosci" << value << std::endl;
+//}
+
 Node Heap::findNodeByValue(int value, int i = 0) {
 
     unsigned l = 2 * i + 1; // Lewy syn
     unsigned r = 2 * i + 2; // Prawy syn
 
-    // czy pod lewym synem?
-    if (value <= array_->getDynamicArrayNodeAt(l).getValue()) {
-        
-        if (array_->getDynamicArrayNodeAt(l).getValue() == value) return array_->getDynamicArrayNodeAt(l);
-        
-        return findNodeByValue(value, l);
+    // Sprawdź czy kopiec jest pusty
+    if (array_->isDynamicArrayEmpty()) {
+        std::cout << "Kopiec jest pusty." << std::endl;
+        return Node(); // Zwróć pusty węzeł
     }
 
-    if (value <= array_->getDynamicArrayNodeAt(r).getValue()) {
-
-        if (array_->getDynamicArrayNodeAt(r).getValue() == value) return array_->getDynamicArrayNodeAt(r);
-
-        return findNodeByValue(value, r);
+    // Jeśli indeks przekracza rozmiar kopca, zwróć pusty węzeł
+    if (i >= array_->getDynamicArraySize()) {
+        std::cout << "Nie znaleziono elementu o wartości " << value << "." << std::endl;
+        return Node(); // Zwróć pusty węzeł
     }
 
-    std::cout << "ERROR nie znaleziono elementu o wartosci" << value << std::endl;
+    // Sprawdź wartość w bieżącym węźle
+    if (array_->getDynamicArrayNodeAt(i).getValue() == value) {
+        return array_->getDynamicArrayNodeAt(i); // Zwróć węzeł, jeśli wartość została znaleziona
+    }
+
+    // Rekurencyjnie poszukaj w lewym i prawym poddrzewie
+    Node foundNode = findNodeByValue(value, l); // Przeszukaj lewe poddrzewo
+    if (!foundNode.isEmpty()) {
+        return foundNode; // Zwróć znaleziony węzeł
+    }
+
+    return findNodeByValue(value, r); // Przeszukaj prawe poddrzewo
 }
+
 
 void Heap::modifyKey(int value, int new_key){
     int i = 0;
 
-    // potrzebna metoda fina ktora zastapi ponizszy do while i bedzie wywolywana rekurencyjnie
     findNodeByValue(value).OverwriteNodeKey(new_key);
+
     // naprawianie heap (ustawianie zmienionego key w dobrym miejscu)
     buildMaxHeap();
 }
@@ -105,7 +140,7 @@ void Heap::buildMaxHeap() {
     }
 }
 
-void Heap::fillFromArrayCSV(const std::string& filename_keys, const std::string& filename_values, int maxElements) {
+void Heap::fillFromCSV(const std::string& filename_keys, const std::string& filename_values, int maxElements) {
     // Otwieramy plik CSV
     std::ifstream file1(filename_keys);
     std::ifstream file2(filename_values);
@@ -147,4 +182,8 @@ void Heap::fillFromArrayCSV(const std::string& filename_keys, const std::string&
     // Zamykamy pliki
     file1.close();
     file2.close();
+}
+
+Node Heap::getNodeAt(unsigned index) {
+    return array_->getDynamicArrayNodeAt(index);
 }

@@ -18,6 +18,7 @@ public:
 
     void insert(int key, int value);
     int extractMax();
+    Node getNodeAt(unsigned index);
 
     int findMax();
     Node findNodeByValue(int value, int i);
@@ -28,5 +29,5 @@ public:
     void buildMaxHeap();
 
     // szybkie przepisanie z pliku 
-    void fillFromArrayCSV(const std::string& filename_keys, const std::string& filename_values, int maxElements);
+    void fillFromCSV(const std::string& filename_keys, const std::string& filename_values, int maxElements);
 };

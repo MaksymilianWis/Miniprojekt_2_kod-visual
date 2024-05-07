@@ -5,7 +5,7 @@
 *.vsix
 
 # Additional Maksymilian's
-main.cpp
+#main.cpp
 *.exe
 *.vscode
 *.sln

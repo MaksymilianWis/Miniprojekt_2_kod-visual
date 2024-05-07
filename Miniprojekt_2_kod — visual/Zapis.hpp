@@ -4,11 +4,13 @@
 #include <string>
 
 class Zapis {
-private:
-	std::ofstream file_;
-	std::string nazwa_pliku_;
 public:
-	Zapis(std::string nazwa_pliku);//otwieranie pliku preferowany tym .csv
+    // Konstruktor przyjmuj¹cy nazwê pliku
+    Zapis(const std::string& filename);
 
-	std::string shot(unsigned iteration, unsigned time, unsigned how_many_time);
+    // Metoda do zapisu danych do pliku CSV
+    void shot(int iteration, unsigned duration, int size);
+
+private:
+    std::string filename; // Nazwa pliku
 };
