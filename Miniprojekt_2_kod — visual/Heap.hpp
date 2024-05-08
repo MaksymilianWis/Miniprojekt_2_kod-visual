@@ -9,8 +9,9 @@ private:
     dynamicArray* array_;
 
 
-    void maxHeapify(unsigned i);
+    void maxHeapify(unsigned i, unsigned size_out_of_leafs);
 public:
+    Heap();
     Heap(unsigned capacity);
     ~Heap();
 
@@ -21,7 +22,7 @@ public:
     Node getNodeAt(unsigned index);
 
     int findMax();
-    Node findNodeByValue(int value, int i);
+    Node findNodeByValue(int value, int i); // i predefiniowane jako i=0
 
     void modifyKey(int value, int new_key);
 
@@ -29,5 +30,6 @@ public:
     void buildMaxHeap();
 
     // szybkie przepisanie z pliku 
-    void fillFromCSV(const std::string& filename_keys, const std::string& filename_values, int maxElements);
+    //void fillFromCSV(const std::string& filename_keys, const std::string& filename_values, int maxElements);
+    void fillFromCSV(const std::string& value_file_name, const std::string& priority_file_name, int n);
 };

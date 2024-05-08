@@ -10,14 +10,14 @@ void testingHeap(const unsigned numOfHeaps, int size, int iteration);
 void runTestsHeap(const unsigned numOfArrays);
 
 int main(){
-    test test;
-    int num_of_numbers = 100;
-    int min = 0;
-    int max = 1000;
-    std::string keys_file1 = "CSV/keys_file1.csv";
-    std::string values_file1 = "CSV/values_file1.csv";
-    int seed = 1;
+    unsigned size = 10;
+    //std::string keys_file1 = "CSV/keys_file1.csv";
+    //std::string values_file1 = "CSV/values_file1.csv";
 
+    //Heap *heap = new Heap;
+    //heap->fillFromCSV("random_numbers.csv", "random_numbers_priority.csv", size);
+
+    //cout << heap->findNodeByValue(67307, 0).getValue() << "TUUUUUUU" << endl;
 
     runTestsHeap(100);
 }
@@ -119,7 +119,7 @@ void testingHeap(const unsigned numOfHeaps, int size, int iteration) {
     int val = heap[0]->getNodeAt(losowa_liczba).getValue();
     auto begin4 = std::chrono::high_resolution_clock::now();
     for (unsigned i = 0; i < numOfHeaps; i++) {
-        heap[i]->modifyKey(val, 1000);
+        heap[i]->modifyKey(val, 1000); // szukanie konkretnego elementu juz dziala ale w tej w testing cos sie rozpierdala
     }
     auto end4 = std::chrono::high_resolution_clock::now();
     auto elapsed4 = std::chrono::duration_cast<std::chrono::microseconds>(end4 - begin4);
