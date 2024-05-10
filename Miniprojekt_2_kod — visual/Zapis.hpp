@@ -13,4 +13,5 @@ public:
 
 private:
     std::string filename; // Nazwa pliku
+    std::ofstream file;
 };

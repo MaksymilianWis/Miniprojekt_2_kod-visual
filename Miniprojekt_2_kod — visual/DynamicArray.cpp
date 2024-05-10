@@ -1,11 +1,7 @@
 #include "DynamicArray.hpp"
 
-dynamicArray::dynamicArray(int capacity) : dynamicArrayCapacity(capacity), arrayNode_(new Node[capacity]) {
-    // konstruktor z argumentem rozmiaru tablicy, pointer wskazuje na pocz¹tek tej tablicy
-    
-    // flagi empty_ automatycznie ustawiane w konstruktorze node
-}
-dynamicArray::dynamicArray() : dynamicArraySize(0), dynamicArrayCapacity(0), arrayNode_(new Node[0])
+dynamicArray::dynamicArray(int capacity) : dynamicArraySize(0), dynamicArrayCapacity(capacity), arrayNode_(new Node[capacity]) {}
+dynamicArray::dynamicArray() : dynamicArraySize(0), dynamicArrayCapacity(1), arrayNode_(new Node[1])
 {
     //konstruktor domyœlny
 }
@@ -112,8 +108,8 @@ void dynamicArray::displayDynamicArray() {  //wyswietlenie tablicy
 
 void dynamicArray::addBack(int key, int value) { // dodaje value w koniec tablicy
     increaseCapacity();
+    arrayNode_[dynamicArraySize].OverwriteNodeKeyValue(key, value);
     dynamicArraySize++;
-    arrayNode_[dynamicArraySize-1].OverwriteNodeKeyValue(key, value);
 }
 
 //void dynamicArray::add(int index, int element) {
@@ -153,8 +149,8 @@ void dynamicArray::addBack(int key, int value) { // dodaje value w koniec tablic
 //}
 
 void dynamicArray::removeBack() {
-    arrayNode_[dynamicArraySize].clearNode();
     dynamicArraySize--;
+    arrayNode_[dynamicArraySize].clearNode();
     decreaseCapacity();
 }
 

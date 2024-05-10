@@ -19,5 +19,5 @@ void test::generateRandomNumbers(int numNumbers, int minValue, int maxValue, con
         outputFile << randomNumber << std::endl;
     }
 
-    outputFile.close();
+    if(outputFile.is_open()) outputFile.close();
 }

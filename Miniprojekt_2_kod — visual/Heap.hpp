@@ -9,7 +9,13 @@ private:
     dynamicArray* array_;
 
 
-    void maxHeapify(unsigned i, unsigned size_out_of_leafs);
+    void heapifyUp();
+    void heapifyDown();
+
+    unsigned getParentIndex(unsigned index);
+    bool hasParent(unsigned index);
+    bool hasLeftChild(unsigned index);
+    bool hasRightChild(unsigned index);
 public:
     Heap();
     Heap(unsigned capacity);
@@ -26,10 +32,10 @@ public:
 
     void modifyKey(int value, int new_key);
 
-
     void buildMaxHeap();
 
+
     // szybkie przepisanie z pliku 
-    //void fillFromCSV(const std::string& filename_keys, const std::string& filename_values, int maxElements);
     void fillFromCSV(const std::string& value_file_name, const std::string& priority_file_name, int n);
+    void printHeap(unsigned i);
 };
