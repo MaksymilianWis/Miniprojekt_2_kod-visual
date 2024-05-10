@@ -129,15 +129,19 @@
   <ItemGroup>
     <ClCompile Include="DynamicArray.cpp" />
     <ClCompile Include="DynamicArray.hpp" />
+    <ClCompile Include="dynamicArray_pq.cpp" />
     <ClCompile Include="Heap.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="priorityQueue.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="Zapis.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="dynamicArray_pq.h" />
     <ClInclude Include="Heap.hpp" />
     <ClInclude Include="Node.hpp" />
+    <ClInclude Include="priorityQueue.h" />
     <ClInclude Include="test.h" />
     <ClInclude Include="Zapis.hpp" />
   </ItemGroup>
